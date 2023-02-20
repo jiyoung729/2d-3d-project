@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"
+      integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas></canvas>
+    <svg>
+      <defs>
+        <!-- defs는 재사용 할 수 있도록 요소들을 정의할때 사용하는 태그 -->
+        <!-- blur나 각종 필터들을 정의, 클립핑마스크와 같이 svg를 마스킹 처리할때 마스킹 처리할 영역도 defs에서 정의할 수 있음 -->
+        <!-- circle, rect처럼 그려질 수 있는것도 정의 할 수 있음 -->
+        <filter id="gooey">
+          <!-- 필터들을 정의하는 태그는 앞에 fe라고 시작이 됨 -->
+          <feGaussianBlur stdDeviation="40" in="SourceGraphic" result="blur1" />
+          <!-- stdDeviation의 값은 하나만 쓸 수도 있고 두개를 쓸 수 있음. 값중 앞은 가로의 블러값을 담당 두번째값은 세로의 블러값을 담당 -->
+          <feColorMatrix in="blur1" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 100 -23" />
+        </filter>
+      </defs>
+    </svg>
+    <script src="index.js"></script>
+  </body>
+</html>
