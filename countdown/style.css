@@ -16,6 +16,18 @@ body {
   height: 50vh;
 }
 
+#click-txt {
+  font-size: 90px;
+  color: #fff;
+  position: absolute;
+  z-index: 10;
+  width: 50vh;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #countdown {
   position: absolute;
   display: flex;
