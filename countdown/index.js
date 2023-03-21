@@ -8,6 +8,8 @@ const interval = 1000 / 60;
 let canvasWidth, canvasHeight;
 
 const particles = [];
+const ringImg = document.querySelector("#ring");
+const clickText = document.querySelector("#click-txt");
 
 function init() {
   canvasWidth = innerWidth;
@@ -26,6 +28,56 @@ function createRing() {
   for (let i = 0; i < PARTICLE_NUM; i++) {
     particles.push(new Particle());
   }
+}
+
+function aniRing() {
+  const texts = document.querySelectorAll("#countdown span");
+  const countDownOption = {
+    opacity: 1,
+    scale: 1,
+    duration: 0.4,
+    ease: "Power4.easeOut",
+  };
+  gsap.fromTo(
+    texts[0],
+    { opacity: 0, scale: 5 },
+    {
+      ...countDownOption,
+      delay: 1,
+    }
+  );
+  gsap.fromTo(
+    texts[1],
+    { opacity: 0, scale: 5 },
+    {
+      ...countDownOption,
+      delay: 2,
+      onStart: () => (texts[0].style.opacity = 0),
+    }
+  );
+  gsap.fromTo(
+    texts[2],
+    { opacity: 0, scale: 5 },
+    {
+      ...countDownOption,
+      delay: 3,
+      onStart: () => (texts[1].style.opacity = 0),
+    }
+  );
+  gsap.fromTo(
+    ringImg,
+    { opacity: 1 },
+    {
+      opacity: 0,
+      duration: 1,
+      delay: 4,
+      onStart: () => {
+        createRing();
+        texts[2].style.opacity = 0;
+      },
+    }
+  );
+  gsap.fromTo(clickText, { opacity: 1 }, { opacity: 0 });
 }
 
 function render() {
@@ -51,7 +103,14 @@ function render() {
       particles[i].update();
       particles[i].draw(ctx);
 
-      if (particles[i].opacity < 0) particles.splice(i, 1);
+      if (particles[i].opacity < 0) {
+        particles.splice(i, 1);
+        if (particles.length === 0) {
+          ringImg.style.opacity = "1";
+          clickText.style.opacity = "1";
+          clickText.style.pointerEvents = "auto";
+        }
+      }
     }
 
     then = now - (delta % interval);
@@ -68,52 +127,7 @@ window.addEventListener("resize", () => {
   init();
 });
 
-window.addEventListener("click", () => {
-  const texts = document.querySelectorAll("span");
-  const countDownOption = {
-    opacity: 1,
-    scale: 1,
-    duration: 0.4,
-    ease: "Power4.easeOut",
-  };
-  gsap.fromTo(
-    texts[0],
-    { opacity: 0, scale: 5 },
-    {
-      ...countDownOption,
-    }
-  );
-  gsap.fromTo(
-    texts[1],
-    { opacity: 0, scale: 5 },
-    {
-      ...countDownOption,
-      delay: 1,
-      onStart: () => (texts[0].style.opacity = 0),
-    }
-  );
-  gsap.fromTo(
-    texts[2],
-    { opacity: 0, scale: 5 },
-    {
-      ...countDownOption,
-      delay: 2,
-      onStart: () => (texts[1].style.opacity = 0),
-    }
-  );
-
-  const ringImg = document.querySelector("#ring");
-  gsap.fromTo(
-    ringImg,
-    { opacity: 1 },
-    {
-      opacity: 0,
-      duration: 1,
-      delay: 3,
-      onStart: () => {
-        createRing();
-        texts[2].style.opacity = 0;
-      },
-    }
-  );
+clickText.addEventListener("click", () => {
+  clickText.style.pointerEvents = "none";
+  aniRing();
 });
