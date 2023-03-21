@@ -45,20 +45,20 @@ function render() {
     if (delta < interval) return;
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    //축하포
-    // confetti({
-    //   x: 0, // 0 ~ 1
-    //   y: 0.5, // 0 ~ 1
-    //   count: 5,
-    //   deg: -50,
-    // });
+    //축하포;
+    confetti({
+      x: 0, // 0 ~ 1
+      y: 0.5, // 0 ~ 1
+      count: 5,
+      deg: -50,
+    });
 
-    // confetti({
-    //   x: 1,
-    //   y: 0.5,
-    //   count: 5,
-    //   deg: -130,
-    // });
+    confetti({
+      x: 1,
+      y: 0.5,
+      count: 5,
+      deg: -130,
+    });
 
     // 가운데에서 퍼지는 콘페티
     // confetti({
@@ -69,29 +69,30 @@ function render() {
     //   spread: 180,
     // });
 
-    deg += 1;
+    // 가운데서 회전하면서 퍼지는 콘페티
+    // deg += 1;
 
-    confetti({
-      x: 0.5,
-      y: 0.5,
-      count: 5,
-      deg: 225 + deg,
-      spread: 1,
-    });
-    confetti({
-      x: 0.5,
-      y: 0.5,
-      count: 5,
-      deg: 90 + deg,
-      spread: 1,
-    });
-    confetti({
-      x: 0.5,
-      y: 0.5,
-      count: 5,
-      deg: 315 + deg,
-      spread: 1,
-    });
+    // confetti({
+    //   x: 0.5,
+    //   y: 0.5,
+    //   count: 5,
+    //   deg: 225 + deg,
+    //   spread: 1,
+    // });
+    // confetti({
+    //   x: 0.5,
+    //   y: 0.5,
+    //   count: 5,
+    //   deg: 90 + deg,
+    //   spread: 1,
+    // });
+    // confetti({
+    //   x: 0.5,
+    //   y: 0.5,
+    //   count: 5,
+    //   deg: 315 + deg,
+    //   spread: 1,
+    // });
 
     for (let i = particles.length - 1; i >= 0; i--) {
       particles[i].update();
